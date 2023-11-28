@@ -1,0 +1,48 @@
+Applying cv2.findContours()
+cv2.findContours(image, Retrieval Mode, Approximation Method)
+
+Retrieval Modes
+
+RETR_LIST - Retrieves all the contours, but doesn't create any parent-child relationship. Parents and kids are equal under this rule, and they are just contours. ie they all belongs to same hierarchy level.
+RETR_EXTERNAL - eturns only extreme outer flags. All child contours are left behind.
+RETR_CCOMP - This flag retrieves all the contours and arranges them to a 2-level hierarchy. ie external contours of the object (ie its boundary) are placed in hierarchy-1. And the contours of holes inside object (if any) is placed in hierarchy-2. If any object inside it, its contour is placed again in hierarchy-1 only. And its hole in hierarchy-2 and so on.
+RETR_TREE - It retrieves all the contours and creates a full family hierarchy list.
+Approximation Method Options
+
+cv2.CHAIN_APPROX_NONE – Stores all the points along the line(inefficient!)
+cv2.CHAIN_APPROX_SIMPLE – Stores the end points of each line
+
+NOTE: For findContours to work, the background has to be black and foreground (i.e. the text or objects)
+Otherwise you'll need to invert the image by using cv2..bitwise_not(input_image)
+
+Remember these Countouring Steps
+Grayscale
+Threshold or Canny Edge Detection to Binarize image
+Note: Blurring before Step 2 is recommended to remove noisy contours
+
+Hierachry
+
+This array stores 4 values for each contour:
+
+First term is the index of the Next contour
+Second term is the index of the Previous contour
+Third term is the index of the parent contour
+Forth term is the index of the child contour
+
+Approximating Contours using ApproxPolyDP
+Using ApproxPolyDP to approximate contours as a more defined shape
+It approximates a contour shape to another shape with less number of vertices depending upon the precision we specify.
+
+cv2.approxPolyDP(contour, Approximation Accuracy, Closed)
+
+contour – is the individual contour we wish to approximate
+Approximation Accuracy – Important parameter is determining the accuracy of the approximation. Small values give precise- approximations, large values give more generic approximation. A good rule of thumb is less than 5% of the contour perimeter
+Closed – a Boolean value that states whether the approximate contour should be open or closed
+
+## **Convex Hull**
+
+![](https://github.com/rajeevratan84/ModernComputerVision/raw/main/convex.png)
+
+Convex Hull will look similar to contour approximation, but it is not (Both may provide the same results in some cases). 
+
+The cv2.convexHull() function checks a curve for convexity defects and corrects it. Generally speaking, convex curves are the curves which are always bulged out, or at-least flat. And if it is bulged inside, it is called convexity defects. For example, check the below image of hand. Red line shows the convex hull of hand. The double-sided arrow marks shows the convexity defects, which are the local maximum deviations of hull from contours

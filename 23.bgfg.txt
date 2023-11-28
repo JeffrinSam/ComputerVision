@@ -1,0 +1,38 @@
+Background and Foreground Subtraction
+In this lesson we'll learn:
+Background Subtraction with Gaussian Mixture-based Background/Foreground Segmentation Algorithm
+Improved adaptive Gausian mixture model for background subtraction
+Taken fron the OpenCV Docs
+
+Background subtraction (BS) is a common and widely used technique for generating a foreground mask (namely, a binary image containing the pixels belonging to moving objects in the scene) by using static cameras.
+
+As the name suggests, BS calculates the foreground mask performing a subtraction between the current frame and a background model, containing the static part of the scene or, more in general, everything that can be considered as background given the characteristics of the observed scene.
+
+
+
+Background modeling consists of two main steps:
+
+Background Initialization;
+Background Update.
+...................................................................................
+What is Background Subtraction?
+Background subtraction is a computer vision technique where we seek to isolate the background from the 'moving' foreground. Consider vehciles traversing a roadway, or persons walking along a sidewalk.
+
+It sounds simple in theory (i.e. just keep the station pixels and remove the ones that were changing). However, things like lighting condition changes, shadows etc. can make things get more complicated.
+
+Several algorithms were introduced for this purpose. In the following, we will have a look at two algorithms from the bgsegm module.
+
+................................................................................
+Gaussian Mixture-based Background/Foreground Segmentation Algorithm
+In this paper, we propose a background subtraction (BGS) method based on the Gaussian mixture models using color and depth information. For combining color and depth information, we used the probabilistic model based on Gaussian distribution. In particular, we focused on solving color camouflage problem and depth denoising. For evaluating our method, we built a new dataset containing normal, color camouflage and depth camouflage situations. The dataset files consist of color, depth and ground truth image sequences. With these files, we compared the proposed algorithm with the conventional color-based BGS techniques in terms of precision, recall and F-measure. As a result, our method showed the best performance. Thus, this technique will help to robustly detect regions of interest as pre-processing in high-level image processing stages
+...................................................................................
+Let's try the Improved adaptive Gausian mixture model for background subtraction
+Background subtraction is a common computer vision task. We analyze the usual pixel-level approach. We develop an efficient adaptive algorithm using Gaussian mixture probability density. Recursive equations are used to constantly update the parameters and but also to simultaneously select the appropriate number of components for each pixel.
+........................................................................
+Background Substraction KKN
+The parameters if you wish to veer away from the default settings:
+
+history is the number of frames used to build the statistic model of the background. The smaller the value is, the faster changes in the background will be taken into account by the model and thus be considered as background. And vice versa.
+dist2Threshold is a threshold to define whether a pixel is different from the background or not. The smaller the value is, the more sensitive movement detection is. And vice versa.
+detectShadows : If set to true, shadows will be displayed in gray on the generated mask. (Example bellow)
+............................................................................'

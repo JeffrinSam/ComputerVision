@@ -1,0 +1,24 @@
+The Lucas-Kanade Optical Flow Algorithm
+Optical flow is the pattern of apparent motion of image objects between two consecutive frames caused by the movemement of object or camera. It is 2D vector field where each vector is a displacement vector showing the movement of points from first frame to second. Consider the image below (Image Courtesy: Wikipedia article on Optical Flow).
+
+
+
+It shows a ball moving in 5 consecutive frames. The arrow shows its displacement vector. Optical flow has many applications in areas like :
+
+Structure from Motion
+Video Compression
+Video Stabilization
+Optical flow works on several assumptions:
+
+The pixel intensities of an object do not change between consecutive frames.
+Neighbouring pixels have similar motion.
+Learn more - https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_lucas_kanade/py_lucas_kanade.html
+
+........................................................................
+Dense Optical Flow
+Lucas-Kanade method computes optical flow for a sparse feature set (in our example, corners detected using Shi-Tomasi algorithm). OpenCV provides another algorithm to find the dense optical flow. It computes the optical flow for all the points in the frame. It is based on Gunner Farneback’s algorithm which is explained in “Two-Frame Motion Estimation Based on Polynomial Expansion” by Gunner Farneback in 2003.
+
+Below sample shows how to find the dense optical flow using above algorithm. We get a 2-channel array with optical flow vectors, (u,v). We find their magnitude and direction. We color code the result for better visualization.
+
+Direction corresponds to Hue value of the image.
+Magnitude corresponds to Value plane. See the code below:

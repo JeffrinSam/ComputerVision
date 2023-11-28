@@ -1,0 +1,44 @@
+Line Detection - Using Hough Lines
+The Hough transform takes a binary edge map as input and attempts to locate edges placed as straight lines. The idea of the Hough transform is, that every edge point in the edge map is transformed to all possible lines that could pass through that point.
+
+cv2.HoughLines(binarized/thresholded image, 𝜌 accuracy, 𝜃 accuracy, threshold)
+
+Threshold here is the minimum vote for it to be considered a line
+.....................................................................
+Probabilistic Hough Lines
+A Hough Transform is considered probabilistic if it uses random sampling of the edge points. These algorithms can be divided based on how they map image space to parameter space.
+
+cv2.HoughLinesP(binarized image, 𝜌 accuracy, 𝜃 accuracy, threshold, minimum line length, max line gap)
+.....................................................................
+Circle Detection - Hough Cirlces
+cv2.HoughCircles(image, method, dp, MinDist, param1, param2, minRadius, MaxRadius)
+
+Method - currently only cv2.HOUGH_GRADIENT available
+dp - Inverse ratio of accumulator resolution
+MinDist - the minimum distance between the center of detected circles
+param1 - Gradient value used in the edge detection
+param2 - Accumulator threshold for the HOUGH_GRADIENT method (lower allows more circles to be detected (false positives))
+minRadius - limits the smallest circle to this size (via radius)
+MaxRadius - similarly sets the limit for the largest circles
+.....................................................................
+Blob Detection
+The function cv2.drawKeypoints takes the following arguments:
+
+cv2.drawKeypoints(input image, keypoints, blank_output_array, color, flags)
+
+flags:
+
+cv2.DRAW_MATCHES_FLAGS_DEFAULT
+cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS
+cv2.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG
+cv2.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS
+..................................................................
+Finding Waldo Using Template Matching
+Notes on Template Matching
+There are a variety of methods to perform template matching, but in this case we are using the correlation coefficient which is specified by the flag cv2.TM_CCOEFF.
+
+So what exactly is the cv2.matchTemplate function doing? Essentially, this function takes a “sliding window” of our waldo query image and slides it across our puzzle image from left to right and top to bottom, one pixel at a time. Then, for each of these locations, we compute the correlation coefficient to determine how “good” or “bad” the match is.
+
+Regions with sufficiently high correlation can be considered “matches” for our waldo template. From there, all we need is a call to cv2.minMaxLoc on Line 22 to find where our “good” matches are. That’s really all there is to template matching!
+
+http://docs.opencv.org/2.4/modules/imgproc/doc/object_detection.html
